@@ -1,0 +1,64 @@
+<div class="upload_div">
+  <input type="file" class="hidden"
+         (change)="onFileSelected($event)"
+         [accept]="requiredFileTypes"
+         #fileUpload>
+
+  <div class="file-upload">
+    {{fileName || "No file uploaded yet."}}
+
+    <button (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+  </div>
+  <div class="error-true" *ngIf="errorSizeBoolean || errorTypeBoolean">
+    <div *ngIf="errorTypeBoolean" class="error-text">
+      Only JPEG and PNG images are allowed.
+    </div>
+    <div *ngIf="errorSizeBoolean" class="error-text">
+      Image size exceeds the maximum allowed (2MB).
+    </div>
+  </div>
+
+  <div id="img_result"
+        #imgResult></div>
+
+  <div class="file-send" *ngIf="showImg">
+    <button (click)="sendImg()" [disabled]="disabledBtnSend">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div id="result-show-text"
+     #resultShowText
+     [ngClass]="(showResult) ? 'result_box': 'result_box hidden'">
+  <button (click)="copyText('result-text')" class="btn_copy">
+    <mat-icon>{{ copyTextIcon }}</mat-icon>
+  </button>
+  <div id="result-text"
+       #resultText></div>
+</div>
+<div id="result-show-json"
+     #resultShowJson
+     [ngClass]="(showResult) ? 'result_box': 'result_box hidden'">
+  <button (click)="copyText('result-json')" class="btn_copy">
+    <mat-icon>{{ copyJsonIcon }}</mat-icon>
+  </button>
+  <div id="result-json"
+       #resultJson></div>
+</div>
+
+<div class="position_relative result_box loading_box" *ngIf="showLoadingIcon">
+  <img src="{{ environment.front }}/assets/icons/refresh.png" alt="refresh">
+</div>
+
+<div id="show-messages" #showMessage class="error hidden">
+  <h3>Oops, there is an error!!!</h3>
+  <div id="show-messages-text" #showMessageText>
+  </div>
+
+  <div>
+    <img class="refresh" src="{{ environment.front }}/assets/icons/twelve.png" alt="time">
+  </div>
+</div>
