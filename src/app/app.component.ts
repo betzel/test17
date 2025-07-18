@@ -205,9 +205,6 @@ export class AppComponent {
         this.disabledBtnSend = false;
       },
       (error) => {
-        // Handle the error
-        console.error('Ninjas.com show an error:', error.error.error);
-
         let domPre = document.createElement('pre');
         domPre.setAttribute('style', 'overflow-x: scroll;');
         domPre.innerText = JSON.stringify(error.error, undefined, 2);
