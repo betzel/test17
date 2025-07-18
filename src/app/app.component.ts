@@ -205,11 +205,25 @@ export class AppComponent {
         this.disabledBtnSend = false;
       },
       (error) => {
-        this.showResult = false;
-        this.disabledBtnSend = false;
-        this.showLoadingIcon = false;
         // Handle the error
         console.error('Ninjas.com show an error:', error.error.error);
+
+        let domPre = document.createElement('pre');
+        domPre.setAttribute('style', 'overflow-x: scroll;');
+        domPre.innerText = JSON.stringify(error.error, undefined, 2);
+
+        if (this.resultJson) {
+          this.resultJson.nativeElement.innerHTML = '';
+          this.resultJson.nativeElement.appendChild(domPre);
+        }
+
+        this.copyTextIcon = 'file_copy';
+        this.copyJsonIcon = 'file_copy';
+
+        this.showLoadingIcon = false;
+        this.showResult = true;
+        this.disabledBtnSend = false;
+
         this.showMessages(error.error.error, 'error');
       });
     }
