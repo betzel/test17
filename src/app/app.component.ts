@@ -209,6 +209,9 @@ export class AppComponent {
         domPre.setAttribute('style', 'overflow-x: scroll;');
         domPre.innerText = JSON.stringify(error.error, undefined, 2);
 
+        if (this.resultText) {
+          this.resultText.nativeElement.innerHTML = '';
+        }
         if (this.resultJson) {
           this.resultJson.nativeElement.innerHTML = '';
           this.resultJson.nativeElement.appendChild(domPre);
@@ -221,7 +224,7 @@ export class AppComponent {
         this.showResult = true;
         this.disabledBtnSend = false;
 
-        this.showMessages(error.error.error, 'error');
+        // this.showMessages(error.error.error, 'error');
       });
     }
   }
